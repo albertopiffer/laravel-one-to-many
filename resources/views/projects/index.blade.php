@@ -10,6 +10,7 @@
         <tr>
             <th>id</th>
             <th>title</th>
+            <th>type</th>
             <th>description</th>
             <th>url</th>
             <th>client</th>
@@ -25,6 +26,11 @@
                 <td><a href="{{ route('projects.show', $project) }}">
                     {{ $project->title }}</a>
                 </td>
+
+                <td>{{ $project->type_id }}</td>
+
+                
+
                 <td>{{ $project->description }}</td>
                 <td>{{ $project->url }}</td>
                 <td>{{ $project->client }}</td>

@@ -17,6 +17,17 @@
             <input type="text" class="form-control" id="title" name="title" value="{{ $project->title }}">
         </div>
 
+
+        <div class="mb-3">
+            <label for="type-id" class="form-label">type</label>
+            <select class="form-select @error('type_id') is-invalid @enderror" id="type-id" name="type_id" aria-label="Default select example">
+                <option value="" selected>Seleziona type</option>
+                @foreach ($types as $type)
+                    <option @selected( old('type_id', $project->type_id ) == $type->id ) value="{{ $type->id }}">{{ $type->name }}</option>
+                @endforeach
+            </select>
+
+
         <div class="mb-3">
             <label for="description" class="form-label">description</label>
             <textarea class="form-control" name="description" id="description" cols="30" rows="10">{{ $project->description }}</textarea>

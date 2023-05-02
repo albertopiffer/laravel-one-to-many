@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Models\Project;
+use App\Models\Type;
 
 use Illuminate\Support\Str;
 
@@ -17,7 +18,8 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::withTrashed()->get();
+        $projects = Project::withTrashed('type')->get();
+
         $page_title = 'project-list';
 
         return view('projects.index', compact('projects'));
@@ -68,7 +70,9 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        return view('projects.edit', compact('project'));
+        $types = Type::orderBy('name')->get();
+
+        return view('projects.edit', compact('project', 'types'));
     }
 
     public function validation(Request $request)
@@ -76,6 +80,7 @@ class ProjectController extends Controller
         return $request->validate([
 
             'title' => 'required|max:255|min:3',
+            'type_id' => 'required|exists:types,id',
             'description' => 'required|string',
             'url' => 'required|url',
             'client' => 'required|string',
